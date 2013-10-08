@@ -1,4 +1,3 @@
-
 	set more off
 	
 ********************************************************************************
@@ -148,7 +147,7 @@ count if no=="DA-1153-2B"
 	merge target_fid2 using `all_gis', uniqusing sort
 	
 	tab _merge
-	set more on
+	set more on /*May want to keep more off*/
 	more
 	rename _merge _gis_survey_merge
 	
@@ -168,7 +167,7 @@ count if no=="DA-1153-2B"
 	replace dist="DA" if dist=="Darkhan"
 	replace dist="ER" if dist=="Erdenet"
 	keep no fin_heseg target_fid2 dist inelig_heseg status_simple status
-	save "Final/Check_response_rate.dta", replace
+	save "Final/Check_response_rate.dta", replace /*should not that a file named Final be created adhead of time*/
 	restore
 	***************************************
 	
