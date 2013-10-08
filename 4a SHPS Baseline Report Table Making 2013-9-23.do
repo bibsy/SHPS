@@ -1,4 +1,3 @@
-
 	*Through table 38 is everyone, 39-49 are gender tables
 	
 	
@@ -84,7 +83,7 @@
 	*this actually requires a fuller version of the dataset without the incomplete interviews
 	*dropped out. One is now created in the SHPS cleaning process and we'll load it here.
 	preserve
-	use "Final/Check_response_rate.dta", clear
+	use "Final/Check_response_rate.dta", clear /*variables in this dataset are not labeled, hard to know what variables mean*/
 	drop if inelig_heseg==1
 	drop if mi(no)
 	
@@ -323,7 +322,7 @@
 	tabstat q6_52, by(district)
 	
 	
-*************Table 34. Households’ Perceptions of Security with Property Registration Certificate (%)
+*************Table 34. Householdsï¿½ Perceptions of Security with Property Registration Certificate (%)
 ***************************************
 
 	tab cert_secure district, nofreq col
