@@ -74,7 +74,7 @@
 ************************************************************************************
 
 	*cap log close
-	*log using "$anlys_dir/SHPS Baseline Tables Output 2013-9-16.log", text replace
+	*log using "$anlys_dir/SHPS Baseline Tables Output 2013-9-16.log", text replace /*log file is commented out but log close at bottom is not*/
 
 	
 *************Table 1. Targeted and Actual Sample
