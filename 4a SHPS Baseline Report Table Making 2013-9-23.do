@@ -121,13 +121,19 @@
 *************Table 6. Average Number of Household Members Employed
 ***************************************
 
-	tabstat hh_employed, by(district)
+	tabstat hh_employed, by(district) save
+	tabstatmat A
+	matrix TAB = A'
+	xml_tab TAB, rnames(Average)cnames(BZ CH SKH Darkhan Erdenet Overall) format((s2110 n2101)) title("Table 6. Average Nubmer of Household Members Employed") save(results.xls) replace
 
 	
 *************Table 7. Household Vehicle Ownership
 ***************************************
 
-	tabstat hh_vehicle_num hh_vehicle_valtot, by(district)
+	tabstat hh_vehicle_num hh_vehicle_valtot, by(district) save
+	tabstatmat A
+	matrix TAB = A'
+	xml_tab TAB, rname("Average Number of Vehicles Owned" "Average Value of All Vehicles by HH (1,000 MNT)") cnames(BZ CH SKH Darkhan Erdenet Overall) format((s2110 n2102 n2100)) title("Table 7. Household Vehicle Ownership") append save(results.xls)
 
 	
 *************Table 8. Household Livestock Ownership
