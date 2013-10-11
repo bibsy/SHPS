@@ -1,9 +1,13 @@
+
+
+*This do-file creates Tables 1-49 in the SHPS baseline report. Balance test regression tables are
+*produced in file "5 SHPS Baseline Report Balance Tests 2013-10-7.do"
 	*Through table 38 is everyone, 39-49 are gender tables
 	
 	
 	
 	set more off
-	*cd "C:\Users\mbombyk\Desktop\SHPS Baseline Processing"
+	cd "C:\IPA\2Urban\Reports & Analysis\SHPS Baseline Report\Revision Sept 2013/Data for SHPS Baseline Report 2013-10-7"
 	global anlys_dir "C:\IPA\2Urban\Reports & Analysis\SHPS Baseline Report\Revision Sept 2013"
 	
 	*use "Final/SHPS_Temp_Cleaned_2013-9-10.dta", clear
@@ -41,6 +45,10 @@
 	replace title=1 if q6_1==4
 	lab def register 0 "No title" 1 "Title", modify
 	
+*Make partial registration (possession certificate or governor's decision) variable
+	cap drop partial_reg
+	gen partial_reg= q6_1==2 | q6_1==3
+	
 *Make registration status variable:
 	gen reg_status=""
 	replace reg_status="None" if q6_1==1
@@ -74,7 +82,7 @@
 ************************************************************************************
 
 	*cap log close
-	*log using "$anlys_dir/SHPS Baseline Tables Output 2013-9-16.log", text replace /*log file is commented out but log close at bottom is not*/
+	*log using "$anlys_dir/SHPS Baseline Tables Output 2013-9-16.log", text replace
 
 	
 *************Table 1. Targeted and Actual Sample
@@ -83,7 +91,7 @@
 	*this actually requires a fuller version of the dataset without the incomplete interviews
 	*dropped out. One is now created in the SHPS cleaning process and we'll load it here.
 	preserve
-	use "Final/Check_response_rate.dta", clear /*variables in this dataset are not labeled, hard to know what variables mean*/
+	use "Final/Check_response_rate.dta", clear
 	drop if inelig_heseg==1
 	drop if mi(no)
 	
@@ -162,7 +170,7 @@
 	tab q13_1 district, col nofreq
 
 	
-*************Table 13. Summary Statistics on Average Revenue, Expense, and Profit per Business from the Last Year of Business
+*************Table 13. Summary Statistics on Average Business Revenue, Costs, and Profit per Household from the Last Year of Business
 ***************************************
 
 	tabstat business_reven business_cost business_profit , by(district)
@@ -322,7 +330,7 @@
 	tabstat q6_52, by(district)
 	
 	
-*************Table 34. Householdsï¿½ Perceptions of Security with Property Registration Certificate (%)
+*************Table 34. Households’ Perceptions of Security with Property Registration Certificate (%)
 ***************************************
 
 	tab cert_secure district, nofreq col
@@ -363,6 +371,7 @@
 *************Table 39. Demographics of Household Heads by Gender 
 ***************************************
 
+	tab hh_head_male
 	tabstat hh_head_married hh_head_lasthome hh_head_age hh_size hh_head_edyrs hashaa_area bus_activ , by(hh_head_male)
 
 
@@ -452,6 +461,34 @@
 	tab title_satis hh_head_male , nofreq col
 
 
+*************Table 50. Kheseg Distribution and Rate of Privatization by City and District
+***************************************
+	tabstat num_hesegs, by(district) // number of hesegs by district
+	codebook fin_heseg,c // overall number of hesegs
+	tabstat av_ownership4, by(district)
+	tabstat num_plots if firstplot, by(district)
+
+	
+*************Table 51. Alterations Made to Kheseg Units
+***************************************
+	*This table was created separately from the SHPS dataset
+
+
+*************Table 52. Distribution of Treatment and Control Plots
+***************************************
+	tab city if treatment==1
+	tab city if treatment==0
+	tab city
+	
+
+*************Table 53. Balance Test
+***************************************
+	*This table is created in do-file "5 SHPS Baseline Report Balance Tests"
+
+
+*************Table 54. Timeline for Formalization Contractors and SHPS Data Collection
+***************************************
+	*This table was created separately from the SHPS dataset
 	
 	
 	
