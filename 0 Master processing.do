@@ -1,4 +1,3 @@
-
 *This do-file was created by IPA-Mongolia for use in the MCA-M Property Rights Project
 
 *Name: SHPS Master Processing.do
@@ -62,6 +61,11 @@
 *4. Create new variables for analysis. This is specific to the baseline report.
 
 	do "$dopath/4a SHPS Baseline Report Table Making 2013-9-23.do"
+	
+	
+*5. Balance Test
+
+	do "$dopath/5 SHPS Baseline Report Balance Test 2013-10-7.do"
 	
 	
 *Erase temporary files
